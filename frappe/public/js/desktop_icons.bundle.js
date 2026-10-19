@@ -80,9 +80,23 @@ function get_route(desktop_icon) {
 			route = desktop_icon.link;
 		}
 	} else if (desktop_icon.link_type == "Workspace Sidebar") {
-		// The same landing the Apps screen and the dock open, in the `/desk/<shell>/...` grammar.
 		let sidebar = frappe.utils.sidebar_for_module(desktop_icon.module || desktop_icon.label);
-		if (sidebar) route = frappe.app.sidebar?.module_landing_route(sidebar.name);
+		if (sidebar) {
+			if (desktop_icon.icon_type === "Link" && desktop_icon.link_to) {
+				route = frappe.ui.sidebar_item.get_route(
+					{
+						type: "Link",
+						link_type: "Workspace",
+						link_to: desktop_icon.link_to,
+					},
+					false,
+					sidebar.name
+				);
+			} else {
+				// The same landing the Apps screen and the dock open.
+				route = frappe.app.sidebar?.module_landing_route(sidebar.name);
+			}
+		}
 	}
 	return route;
 }
