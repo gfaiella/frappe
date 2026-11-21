@@ -95,6 +95,9 @@
     "sortablejs": "^1.15.7"
   },
   "devDependencies": {
-    "lucide-static": "1.47.0"
+    "less": "^4.9.1",
+    "lucide-static": "1.47.0",
+    "stylus": "^0.64.0",
+    "vue-template-compiler": "^2.7.16"
   }
 }
